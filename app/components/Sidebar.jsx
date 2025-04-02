@@ -44,10 +44,16 @@ const Sidebar = () => {
           isOpen ? "translate-x-0" : "-translate-x-64"
         } md:translate-x-0 md:relative`}
       >
-        {/* Titre en haut */}
-        <h1 className="text-xl mt-2 font-bold md:pl-5 pl-14    ">Kawou </h1>
+      
+          <div className="flex items-center ">
+               {/* <img   className=" md:mr-0 mr-[-40px]  w-10  "
+               src="https://img.freepik.com/vecteurs-libre/vecteur-degrade-logo-colore-oiseau_343694-1365.jpg" alt="" />
+             */}
+              <h1 className="text-xl mt-2 font-bold md:pl-5 pl-14    ">Kawou </h1>
+          </div>
+          <hr className="text-white mt-2" />
 
-        {/* Liste des liens avec un petit espacement */}
+       
         <ul className="mt-5">
           {menuItems.map((item) => (
             <li key={item.path} className={`mb-2 p-2 rounded ${pathname === item.path ? "bg-gray-700" : ""}`}>

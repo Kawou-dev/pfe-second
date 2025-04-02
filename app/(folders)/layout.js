@@ -14,7 +14,7 @@ const layout = ({children}) => {
       <Header className="fixed top-0 left-64 right-0 h-16 bg-white   shadow-md z-10" />
   
      
-      <div className="mt-8 p-5 flex-1 overflow-auto">
+      <div className="pt-8 p-5 flex-1 overflow-auto  bg-[#f9f9f9]">
         {children}
       </div>
     </div>
