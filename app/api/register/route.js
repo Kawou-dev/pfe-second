@@ -4,7 +4,7 @@
 // import bcrypt from "bcrypt"
 
 import { connectDB } from "@/lib/config/connectDB";
-import UserModel from "@/lib/models/User";
+import UserModel from "@/lib/models/UserModel";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt"
 

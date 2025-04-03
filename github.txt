@@ -1,0 +1,19 @@
+Ajoute tes modifications
+Ajoute tous les fichiers modifiés et nouveaux fichiers :
+
+bash
+Copier
+Modifier
+git add .
+Fais un commit avec un message
+
+bash
+Copier
+Modifier
+git commit -m "Ajout des nouvelles modifications"
+Envoie ton code sur GitHub
+
+bash
+Copier
+Modifier
+git push origin main

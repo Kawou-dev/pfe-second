@@ -1,5 +1,5 @@
 import { connectDB } from "@/lib/config/connectDB";
-import Todo from "@/lib/models/Todo";
+import Todo from "@/lib/models/TodoModel";
 import { NextResponse } from "next/server";
 
  async function  connect(){
@@ -15,13 +15,11 @@ import { NextResponse } from "next/server";
       if(!existingTodo){
          return NextResponse.json({message: "Todo does not exist"} , {status : 404})  ; 
       }
-      const {title , description , status , deadline} = existingTodo ; 
-      const updatedTodo = await Todo.findByIdAndUpdate(id , {
-         $set: {
-            status : !status
-         }
+      const {title , description , isCompleted, priority , deadline} = existingTodo ; 
+      const updatedTodo = await Todo.findByIdAndUpdate(id, {
+         $set : {  isCompleted : !isCompleted   }
       })
-      return NextResponse.json({updatedTodo : updatedTodo} , {status: 200}) ; 
+      return NextResponse.json({message : updatedTodo}, {status: 200}) ; 
    } catch (error) {
       console.error("Error fetching todos: " , error.message) ; 
       return NextResponse.json({message: "Internal error server"}, {status : 500}) ;      

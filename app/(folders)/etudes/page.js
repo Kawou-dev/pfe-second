@@ -1,12 +1,14 @@
 import React from 'react'
 import Layout from '@/app/hooks/Layout'
+import Reduce from '@/app/components/Reduce'
 const page = () => {
   return (
-       <Layout>
+       <>
              <div>
-              <h1>Etudes pages</h1>
+                  <h1>Etudes pages</h1>
+                  <Reduce />
              </div>
-       </Layout>
+       </>
   )
 }
 
