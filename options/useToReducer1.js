@@ -57,10 +57,8 @@ const useTodoReducer1 = () => {
         try {
             const res = await fetch("/api/todo");
             const data = await res.json();
-            if (!data.error) {
-                dispatch({ type: "SET_TODOS", payload: data.todos });
-              
-            }
+            if (data.error) throw new Error(data.error);
+            dispatch({ type: "SET_TODOS", payload: data.todos });
         } catch (error) {
             console.error(error);
         } finally {
@@ -150,7 +148,7 @@ const useTodoReducer1 = () => {
             const data = await res.json();
             if (data.error) throw new Error(data.error);
 
-            // Dispatch the action to toggle the 'isCompleted' status
+           
             dispatch({ type: "TOGGLE_TODO", payload: { id } });
             toast.success('Todo updated successfully');
             fetchTodos();

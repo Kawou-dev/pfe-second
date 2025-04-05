@@ -6,14 +6,14 @@ import { MdDelete } from "react-icons/md";
 import useTodoReducer1 from "@/options/useToReducer1";
 
 const Todo = () => {
-    // Hook-based state and actions
-    const [starColors, setStarColors] = useState({});
+  
+   
     const [isEditing, setIsEditing] = useState(false)
     const { todos, loading, isOpenPopup, setIsOpenPopup, fetchTodos, addTodo , editTodo , deleteTodo , completeTodo } = useTodoReducer1();
     const [formData, setFormData] = useState({
         title: "",
         description: "",
-        priority: "",
+        priority: "low",
         deadline: ""
     });
 
@@ -25,13 +25,15 @@ const Todo = () => {
     // Display popup for adding a task
     const displayPopup = () => {
       setIsEditing(false);  // Désactive le mode édition
-       setFormData({ title: "", description: "", priority: "", deadline: "" }); 
+     setFormData({ title: "", description: "", priority: "low", deadline: "" }); 
       setIsOpenPopup(true);
     };
 
     // Handle adding a new todo
-    const handleAdd = async (formData) => {
+    const handleAdd = async () => {
+      
         await addTodo(formData);
+        console.log(formData)
     };
     const handlePopup = (todo) => {
       setIsEditing(true);
@@ -41,15 +43,14 @@ const Todo = () => {
 
     const handleEdit = async(formData) => {
          await  editTodo(formData)
-           setIsOpenPopup(false)
+         setIsOpenPopup(false)
     }
     const handleDelete = async(id) => {
           await deleteTodo(id)
     }
     const handleComplete = async(todo) => {
          await completeTodo(todo._id)
-          setStarColors(prevColors => ({...prevColors,  [todo._id]: !todo.isCompleted,  // Inverse la couleur (true pour vert, false pour rouge)
-      }));
+   
       
     }
 
@@ -90,7 +91,9 @@ const Todo = () => {
                                     {todo?.deadline ? new Date(todo.deadline).toLocaleDateString('fr-FR') : "No deadline"}
                                         <p>{todo?.priority || "Low"}</p>
                                         <div className="flex items-center gap-3 text-[1.2rem]">
-                                            <button onClick={() => handleComplete(todo)}    className={`cursor-pointer ${todo?._id && starColors[todo._id] ? "bg-green-500" : "bg-red-400"}  rounded-full   `} ><CiStar /></button>
+                                        <button  onClick={() => handleComplete(todo) }  className={` ${todo?.isCompleted  ? 'bg-green-600' : 'bg-red-600' }  cursor-pointer rounded-full    `}     ><CiStar /></button>
+
+                                            {/* <button onClick={() => handleComplete(todo)}    className={`cursor-pointer ${todo?._id && starColors[todo._id] ? "bg-green-500" : "bg-red-400"}  rounded-full   `} ><CiStar /></button> */}
                                             <button onClick={() => handlePopup(todo)} className="text-[#00A1F1] cursor-pointer"><FaEdit /></button>
                                             <button onClick={() => handleDelete(todo._id)} className="text-[#F65314] cursor-pointer"><MdDelete /></button>
                                         </div>
@@ -111,12 +114,18 @@ const Todo = () => {
                         </button>
                     </>
                 )}
-            </div>
 
-            {/* Popup Modal for Adding Task */}
+               
+            </div>
+                    {/*  Button add small device    */}
+            <div className=" md:hidden absolute rounded-full cursor-pointer bg-gray-800   bottom-20 right-10 flex justify-end items-end flex-col    ">
+                    <button onClick={displayPopup} className="text-2xl text-white w-11 h-11 cursor-pointer  border-transparent rounded-full  ">+</button>
+                </div>
+
+            {/* Popup*/}
             {isOpenPopup && (
-                <div className="fixed left-0 top-0 h-full w-full overflow-hidden bg-[rgba(0,0,0,0.35)] flex justify-center items-center z-50">
-                    <div className="bg-white p-6 rounded-lg shadow-lg w-[400px] z-60 font-serif">
+                <div className=" fixed left-0 top-0 h-full w-full overflow-hidden bg-[rgba(0,0,0,0.35)] flex justify-center items-center z-50">
+                    <div className="   bg-white p-6 rounded-lg shadow-lg md:w-[400px]  md:h-[460px]  z-60 font-serif">
                         <h2 className="text-2xl font-semibold font-sans mb-4">{isEditing ? "Editer une tâche" : "Ajouter une tâche"   }    </h2>
                         <div>
                             <label htmlFor="">Titre: </label>
@@ -161,7 +170,7 @@ const Todo = () => {
 
                         <div className="flex justify-end gap-2">
                             <button onClick={() => setIsOpenPopup(false)} className="px-4 py-2 bg-gray-300 rounded cursor-pointer">Annuler</button>
-                            <button onClick={ isEditing ? ()=> handleEdit(formData) :  () => handleAdd(formData)  } className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"> {isEditing ? "Editer" : "Ajouter"}   </button>
+                            <button onClick={ isEditing ? ()=> handleEdit(formData) :  () => handleAdd()  } className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"> {isEditing ? "Editer" : "Ajouter"}   </button>
                             {/* <button onClick={() => handleAdd(formData)} className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"> {isEditing ? "Editer" : "Ajouter"}   </button> */}
                         </div>
                     </div>

@@ -10,10 +10,22 @@ Fais un commit avec un message
 bash
 Copier
 Modifier
-git commit -m "Ajout des nouvelles modifications"
+git commit -m "third commit"
 Envoie ton code sur GitHub
 
 bash
 Copier
 Modifier
 git push origin main
+
+
+
+# 1. Ajouter tous les fichiers modifiés et nouveaux
+git add .
+
+# 2. Commit avec un message
+git commit -m "feat: update composants et ajout de Slider"
+
+# 3. Pousser vers les deux remotes
+git push origin main
+git push backup main

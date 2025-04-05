@@ -16,7 +16,7 @@ const Sidebar = () => {
     { name: "Vacances", path: "/vacances" },
   ];
 
-  // Fermer le menu quand on clique en dehors
+  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (isOpen && !event.target.closest(".sidebar")) {
@@ -30,15 +30,15 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Bouton Hamburger */}
+ 
       <button 
         className="md:hidden text-2xl cursor-pointer fixed top-3 left-5 z-60 text-black p-2 rounded"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {isOpen ? <X className="text-white top-4" size={24} /> : <Menu size={24} />}
+        {isOpen ? <X className="text-white top-6" size={24} /> : <Menu size={24} />}
       </button>
 
-      {/* Sidebar */}
+    
       <nav 
         className={`sidebar fixed z-50 top-0 left-0 h-full w-64 bg-gray-800 text-white p-5 flex flex-col transition-transform duration-300 ${
           isOpen ? "translate-x-0" : "-translate-x-64"

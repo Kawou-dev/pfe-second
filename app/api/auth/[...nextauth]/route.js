@@ -45,7 +45,7 @@ const authOptions = {
     async session({ session, token }) {
       if (token) {
         session.user.id = token.id;
-        session.user.username = token.username; // 🔥 Ajout du username dans la session
+        session.user.username = token.username; 
       }
       return session;
     },
@@ -53,7 +53,7 @@ const authOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.username = user.username; // 🔥 Ajout du username dans le token JWT
+        token.username = user.username;
       }
       return token;
     },
