@@ -1,13 +1,18 @@
-import React from 'react'
-import Layout from '@/app/hooks/Layout'
-import Reduce from '@/app/components/Reduce'
+//  app/course/page.js
+
+import Etude from '@/app/components/Etude'
+import { Toaster } from 'react-hot-toast'
+
+
 const page = () => {
   return (
        <>
-             <div>
-                  <h1>Etudes pages</h1>
-                  <Reduce />
+             <div className=''>    
+                  <Etude />
+                  <Toaster />     
              </div>
+
+          
        </>
   )
 }

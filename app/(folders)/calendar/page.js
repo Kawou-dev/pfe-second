@@ -11,11 +11,7 @@ const Page = () => {
       <h1 className="text-3xl font-bold text-green-500 text-center">Calendrier</h1>
 
       <div className="border rounded-lg p-4 shadow-md">
-        <Calendar 
-          className="calendar-custom" 
-          onChange={setDate} 
-          value={date} 
-        />
+        <Calendar   className="calendar-custom"  onChange={setDate}  value={date} />
       </div>
 
       <div className="flex gap-1 items-baseline">

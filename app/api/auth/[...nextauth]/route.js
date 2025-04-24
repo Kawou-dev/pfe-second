@@ -12,8 +12,7 @@ const authOptions = {
       async authorize(credentials) {
         const { email, password } = credentials;
 
-        console.log("Reçu :", email, password);
-         await connectDB() ; 
+        await connectDB();
         const user = await UserModel.findOne({ email });
 
         if (!user) {
@@ -32,7 +31,8 @@ const authOptions = {
         return {
           id: user._id.toString(),
           email: user.email,
-          username: user.username, // 🔥 Ajout du username
+          username: user.username,
+          profilePic: user.profilePic || "",
         };
       },
     }),
@@ -40,30 +40,31 @@ const authOptions = {
   session: {
     strategy: "jwt",
   },
-  
   callbacks: {
-    async session({ session, token }) {
-      if (token) {
-        session.user.id = token.id;
-        session.user.username = token.username; 
-      }
-      return session;
-    },
-
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
         token.username = user.username;
+        token.profilePic = user.profilePic;
       }
       return token;
     },
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id;
+        session.user.username = token.username;
+        session.user.profilePic = token.profilePic;
+      }
+      return session;
+    },
   },
-
   pages: {
     signIn: "/login",
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
+
+export { authOptions };
 
 const handler = NextAuth(authOptions);
 

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import toast from "react-hot-toast";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -13,19 +14,45 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-         const res = await signIn("credentials" , {
-          email  , password , redirect : false
-         })
-         if(res.ok){
-             router.replace("/dashboard")
-         }else{
-          console.log( "Erreur request : " ,  res.error)
-         }
+    // try {
+    //      const res = await signIn("credentials" , {
+    //       email  , password , redirect : false
+    //      })
+        
+    //      if(res.ok){
+    //           toast.success("Logged succesfully")
+    //          router.replace("/dashboard")
+    //      }else{
+    //          console.log( "Erreur request : " ,  res.error)
+    //          const data  = await res.json() ;
+    //          throw new Error(data.error)  ; 
+    //      }
 
+    // } catch (error) {
+    //   console.log("Erreur signin: " , error.message)
+    //   toast.error(error.message)
+    // }
+    try {
+      const res = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+    
+      if (res.ok) {
+        toast.success("Connected successfully !");
+        router.replace("/dashboard");
+      } else {
+        console.log("Erreur request :", res.error);
+          if (res.error === "CredentialsSignin") {
+          throw new Error("Email or password incorrect.");
+        }
+      }
     } catch (error) {
-      console.log("Erreur signin: " , error.message)
+      console.log("Erreur signin:", error.message);
+      toast.error(error.message);
     }
+    
 
     console.log(email , password)
 
@@ -77,7 +104,10 @@ const LoginForm = () => {
                   />
                 </div>
                 <div className="flex items-center justify-between">
-                  <div className="flex items-start">
+                  <div className="flex  items-start">
+                  <div className="flex items-center mb-4">
+                    <input  id="disabled-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                </div>
                     <div className="ml-3 text-sm">
                       <label
                         htmlFor="remember"
@@ -104,7 +134,7 @@ const LoginForm = () => {
                   Don’t have an account yet?{" "}
                   <Link
                     href={"/register"}
-                    className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                    className="font-medium text-blue-600 text-primary-600 hover:underline dark:text-primary-500"
                   >
                     Sign up
                   </Link>

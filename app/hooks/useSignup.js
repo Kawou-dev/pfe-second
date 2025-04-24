@@ -8,10 +8,10 @@ const useSignup = () => {
     const [loading , setLoading] = useState(false) ; 
     const router = useRouter() ;  
 
-    const signup = async ({username , email , password , confirmPassword , genre}) => {
+    const signup = async ({username , email , password , confirmPassword , gender}) => {
          setLoading(true) ; 
         try {
-            const succes = handleInputsError({username , email , password , confirmPassword , genre}) ; 
+            const succes = handleInputsError({username , email , password , confirmPassword , gender}) ; 
             if(!succes){
                 return ; 
             }
@@ -25,23 +25,33 @@ const useSignup = () => {
             const data1 = await resUserExist.json();
             
             if (!resUserExist.ok) {
-                toast.error(data1.message); 
+                console.log("Error -> user exist:" , data1.message)
+                throw new Error(data1.message)
                 return;
             }
+       
             const res = await fetch("/api/register" , {
                 method : "POST" , 
                 headers : {"Content-Type" : "application/json"} , 
-                body : JSON.stringify({username , email , password , confirmPassword , genre})
+                body : JSON.stringify({username , email , password , confirmPassword , gender})
             })
 
-            const data = await res.json() ; 
+            const data = await res.json() ;
+            
+            if(!res.ok){
+                console.log("Error registration " , data.message) ; 
+                throw new Error(data.message) ; 
+                return ; 
+            }
+            
             if(data.error) throw new Error(data.error) ; 
             if(res.ok){
-                toast.success("Succes")
+                 toast.success("Registred successfully")
                  router.replace("/login") 
             }
             
         } catch (error) {
+            console.log("catch final :" , error.message)
             toast.error(error.message)    
         }finally{
             setLoading(false)
@@ -56,9 +66,9 @@ const useSignup = () => {
 
 export default useSignup
 
-function handleInputsError ({username , email , password , confirmPassword , genre}){
-    if( !username || !email || !password  ||  !confirmPassword  || !genre  ){
-        toast.error("All fields are reuired") ; 
+function handleInputsError ({username , email , password , confirmPassword , gender}){
+    if( !username || !email || !password  ||  !confirmPassword  || !gender  ){
+        toast.error("All fields are required") ; 
         return false ; 
     }
     if(password !== confirmPassword) {

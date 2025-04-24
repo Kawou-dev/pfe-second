@@ -13,7 +13,7 @@ const Todo = () => {
     const [formData, setFormData] = useState({
         title: "",
         description: "",
-        priority: "low",
+        priority: "faible",
         deadline: ""
     });
 
@@ -25,7 +25,7 @@ const Todo = () => {
     // Display popup for adding a task
     const displayPopup = () => {
       setIsEditing(false);  // Désactive le mode édition
-     setFormData({ title: "", description: "", priority: "low", deadline: "" }); 
+     setFormData({ title: "", description: "", priority: "faible", deadline: "" }); 
       setIsOpenPopup(true);
     };
 
@@ -57,9 +57,11 @@ const Todo = () => {
     return (
         <div>
             {/* Task List Section */}
+            
             <div className="flex flex-wrap gap-4 md:ml-3 ml-5">
                 {loading ? (
-                    <div className="mt-5" role="status">
+                    <div className="flex justify-center w-full mt-3">
+                          <div className="mt-5" role="status">
                         <svg
                             aria-hidden="true"
                             className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -78,6 +80,7 @@ const Todo = () => {
                         </svg>
                         <span className="sr-only">Loading...</span>
                     </div>
+                    </div>
                 ) : (
                     <>
                         {todos.length > 0 ? (
@@ -85,7 +88,7 @@ const Todo = () => {
                                 <div key={index} className="h-[14rem] px-4 py-3 flex flex-col gap-4 shadow-md w-[280px] bg-white rounded-lg mt-6">
                                     <div>
                                         <h4 className="font-semibold text-2xl">{todo?.title }</h4>
-                                        <p className="mt-0.1">{todo?.description}</p>
+                                        <p className="mt-1">{todo?.description}</p>
                                     </div>
                                     <div className="mt-auto flex items-center justify-between">
                                     {todo?.deadline ? new Date(todo.deadline).toLocaleDateString('fr-FR') : "No deadline"}
@@ -108,7 +111,7 @@ const Todo = () => {
 
                         <button
                             onClick={displayPopup}
-                            className="h-[14rem] px-4 py-3 flex flex-col gap-4 shadow-md w-[280px] rounded-lg mt-6 border-2 border-dashed border-gray-400 hover:bg-gray-300 hover:border-none duration-200 ease-in-out"
+                            className="h-[14rem] px-4 py-3 flex flex-col items-center justify-center gap-4 shadow-md w-[280px] rounded-lg mt-6 border-2 border-dashed border-gray-400 hover:bg-gray-300 hover:border-none duration-200 ease-in-out"
                         >
                             <h1>Add Task</h1>
                         </button>
@@ -153,9 +156,9 @@ const Todo = () => {
                                 onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
                                 className="border p-2 rounded w-full mb-2 bg-[#f9f9f9]"
                             >
-                                <option value="low">Faible</option>
-                                <option value="medium">Moyenne</option>
-                                <option value="high">Élevée</option>
+                                <option value="faible">Faible</option>
+                                <option value="moyenne">Moyenne</option>
+                                <option value="élevé">Élevée</option>
                             </select>
                         </div>
                         <div>

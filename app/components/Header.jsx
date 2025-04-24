@@ -8,36 +8,39 @@ import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { IoCalendarNumberOutline } from "react-icons/io5";
+
 
 const Header = () => {
   const { data: session } = useSession();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
-  const accountRef = useRef(null); // Ref for the account dropdown
-
+  const accountRef = useRef(null); 
+   
   const toggleSearchInput = () => {
-    setIsSearchOpen(!isSearchOpen); // Toggle the search input
+    setIsSearchOpen(!isSearchOpen); 
   };
 
   const opVsAccount = () => {
     setIsAccountOpen(!isAccountOpen);
   };
 
-  // Close the dropdown when the user clicks outside of it
+  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (accountRef.current && !accountRef.current.contains(event.target)) {
-        setIsAccountOpen(false); // Close the dropdown
+        setIsAccountOpen(false); 
       }
     };
 
     document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside); // Cleanup
+    return () => document.removeEventListener("click", handleClickOutside); 
   }, []);
+  // console.log(session?.user?.profilePic)
 
   return (
-    <div className="flex justify-between items-center h-16 w-full shadow-md px-4 md:px-16 relative">
-      {/* Left Section */}
+    <div className="flex  justify-between items-center h-16 w-full shadow-md px-4 md:px-16 relative">
+     
       <div className="ml-12 text-2xl md:hidden flex items-center">
         <h1>Kawou</h1>
       </div>
@@ -45,7 +48,7 @@ const Header = () => {
       <div className="flex items-center">
         {!isSearchOpen && (
           <form className="hidden md:flex relative">
-            {/* Input Field (Visible on large screens only) */}
+          
             <input
               className="border rounded-full pl-3 p-[2px]"
               type="text"
@@ -62,12 +65,12 @@ const Header = () => {
 
         {isSearchOpen && (
           <form className="flex relative">
-            {/* Input Field (Visible when search is toggled) */}
+         
             <button
               className="mr-2 text-xl cursor-pointer"
               onClick={toggleSearchInput}
             >
-              <MdArrowBack className="md:hidden" /> {/* Close/Back Arrow Button */}
+              <MdArrowBack className="md:hidden" /> 
             </button>
             <input
               className="border rounded-full pl-3 p-[2px]"
@@ -84,11 +87,11 @@ const Header = () => {
         )}
       </div>
 
-      {/* Right Section */}
+   
       <div className="flex items-center gap-4">
         {!isSearchOpen && (
           <div className="md:hidden">
-            {/* Search Button for Small Screens */}
+          
             <CiSearch
               className="text-xl cursor-pointer"
               onClick={toggleSearchInput}
@@ -103,20 +106,34 @@ const Header = () => {
             className="text-xl cursor-pointer"
             onClick={opVsAccount}
           />
-          {isAccountOpen && (
-            <div className="absolute border-2 w-[220px] h-[300px] top-11 md:right-[-60px] right-[-15px] rounded-2xl bg-slate-800">
-              <div className="text-white p-4">
-                <h1>{session?.user?.username}</h1>
-                <h1>{session?.user?.email}</h1>
+          {/* {isAccountOpen && (
+            <div className="absolute z-50 border-2 w-[220px] h-[300px] top-11 md:right-[-60px] right-[-15px] rounded-2xl bg-slate-800">
+              <div className="text-white p-4 flex flex-col items-center justify-center">
+                       <div>
+                       <a href={session?.user?.profilePic}><img src={session?.user?.profilePic} alt="Profile" className="w-10 h-10 rounded-full object-cover" /></a>
+                          <h4>{session?.user?.username}</h4>
+                          <p className="text-sm">{session?.user?.email}</p>
+                  
+                       </div>
                   
                   <div className="hover:bg-slate-400 p-[5px] rounded-xl  cursor-pointer  ">
-                       <Link href={"/calendar"}>  <h1 className="pl-2">Calendrier</h1></Link>
+                      
                   </div>
 
                   <hr />
 
+                  <div  className="flex gap-3 px-6  hover:bg-slate-400 p-2 rounded-xl cursor-pointer"  >
+                 
+                  <div className="text-2xl text-white">
+                     <IoCalendarNumberOutline />
+                  </div>
+                  <div>
+                  <Link href={"/calendar"}>  <h1 className="pl-2">Calendrier</h1></Link>
+                  </div>
+                </div>
+
                 <div onClick={() => signOut()}
-                  className="flex gap-3 mt-5 hover:bg-slate-400 p-2 rounded-xl cursor-pointer"
+                  className="flex gap-3 hover:bg-slate-400 p-2 rounded-xl cursor-pointer"
                 >
                   <div className="text-2xl text-white">
                     <MdLogout />
@@ -124,10 +141,59 @@ const Header = () => {
                   <div>
                     <h1>Se déconnecter</h1>
                   </div>
-                </div>
+                </div> 
+                
               </div>
             </div>
-          )}
+          )} */}
+          {isAccountOpen && (
+  <div className="absolute z-50 border-2 w-[220px] h-[300px] top-11 md:right-[-60px] right-[-15px] rounded-2xl bg-slate-800 shadow-lg">
+    <div className="text-white py-4  flex flex-col items-center justify-center space-y-4">
+      
+      {/* Profile Section */}
+      <div className="text-center flex justify-center flex-col items-center   ">
+        <a href={session?.user?.profilePic}>
+          <img
+            src={session?.user?.profilePic}
+            alt="Profile"
+            className="w-16 h-16 rounded-full object-cover border-2 border-white mb-2"
+          />
+        </a>
+        <h4 className="text-lg font-semibold">{session?.user?.username}</h4>
+        <p className="text-sm">{session?.user?.email}</p>
+      </div>
+
+      {/* Divider */}
+      <hr className="border-gray-300 w-[90%] mb-4" />
+
+      {/* Calendar Link */}
+      <div className="flex w-full items-center gap-2 px-6 pt-2  cursor-pointer hover:bg-slate-600 transition duration-200">
+        <div className="text-2xl text-white">
+          <IoCalendarNumberOutline />
+        </div>  
+        <div>
+          <Link href={"/calendar"}>
+            <h1 className="pl-2 font-medium">Calendrier</h1>
+          </Link>
+        </div>
+      </div>
+
+      {/* Logout Button */}
+      <div
+        onClick={() => signOut()}
+        className="flex w-full items-center gap-2 px-6 py-1  cursor-pointer hover:bg-slate-600 transition duration-200"
+      >
+        <div className="text-xl text-white">
+          <MdLogout />
+        </div>
+        <div>
+          <h1 className="font-medium">Se déconnecter</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
         </div>
       </div>
     </div>

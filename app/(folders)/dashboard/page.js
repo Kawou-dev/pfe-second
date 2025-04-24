@@ -1,5 +1,7 @@
 "use client"
+import Dashboard from "@/app/components/Dashboard";
 import TodoList from "@/app/components/TodoList";
+import VacanceList from "@/app/components/VacanceList";
 import { fetchTodos } from "@/app/controllers/FetchTodo"
 import useFetchTodos from "@/app/hooks/useFetchTodos";
 import { useEffect, useState } from "react"
@@ -12,11 +14,15 @@ const Page = () => {
 
    
     return (
-          <div className="flex flex-col gap-3">
-                <h1>Dashboard</h1>
-                  <TodoList  />
-                  <Toaster />
-          </div>
+        //   <div className="flex flex-col gap-5 ml-5    ">
+        //         <h1>Dashboard</h1>
+        //           {/* <TodoList  />
+        //           <VacanceList  />
+        //           <Toaster /> */}
+        //   </div>
+        <div className="">
+            <Dashboard />
+        </div>
     );
 };
 

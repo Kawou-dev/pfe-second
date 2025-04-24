@@ -5,15 +5,23 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react"; // Icônes pour le menu et fermeture
 
+//  icones 
+import { IoHomeOutline } from "react-icons/io5";
+import { FaBookReader } from "react-icons/fa";
+import { LuListTodo } from "react-icons/lu";
+import { FaUmbrellaBeach } from "react-icons/fa6";
+import { FiBook } from "react-icons/fi";
+import { LuNotebook } from "react-icons/lu";
+
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
   const menuItems = [
-    { name: "Dashboard", path: "/dashboard" },
-    { name: "Étude", path: "/etudes" },
-    { name: "To do", path: "/todo" },
-    { name: "Vacances", path: "/vacances" },
+    { name: "Dashboard", path: "/dashboard" , icones : <IoHomeOutline /> },
+    { name: "Étude", path: "/etudes" , icones : <LuNotebook /> },
+    { name: "To do", path: "/todo" , icones : <LuListTodo /> },
+    { name: "Vacances", path: "/vacances" , icones : <FaUmbrellaBeach /> },
   ];
 
   
@@ -28,6 +36,12 @@ const Sidebar = () => {
     return () => document.removeEventListener("click", handleClickOutside);
   }, [isOpen]);
 
+  const closeSideBar = () => {
+    if (window.innerWidth < 768) {
+      setIsOpen(false);
+    }
+  }
+
   return (
     <>
  
@@ -40,7 +54,7 @@ const Sidebar = () => {
 
     
       <nav 
-        className={`sidebar fixed z-50 top-0 left-0 h-full w-64 bg-gray-800 text-white p-5 flex flex-col transition-transform duration-300 ${
+        className={`sidebar fixed md:rounded-none rounded-r-2xl  z-50 top-0 left-0 h-full w-64 bg-gray-800 text-white p-5 flex flex-col transition-transform duration-300 ${
           isOpen ? "translate-x-0" : "-translate-x-64"
         } md:translate-x-0 md:relative`}
       >
@@ -54,13 +68,22 @@ const Sidebar = () => {
           <hr className="text-white mt-2" />
 
        
-        <ul className="mt-5">
+          <ul className="mt-5">
           {menuItems.map((item) => (
-            <li key={item.path} className={`mb-2 p-2 rounded ${pathname === item.path ? "bg-gray-700" : ""}`}>
-              <Link href={item.path}>{item.name}</Link>
-            </li>
+            <Link key={item.path} href={item.path}>
+              <li
+                className={`mb-2 p-2 rounded ${pathname === item.path ? "bg-gray-600" : ""} hover:bg-gray-700`}
+                onClick={closeSideBar}
+              >
+                <div className="flex items-center gap-2">
+                  {item.icones}
+                  {item.name}
+                </div>
+              </li>
+            </Link>
           ))}
         </ul>
+
       </nav>
     </>
   );

@@ -36,10 +36,10 @@ import { NextResponse } from "next/server";
       if(!existingTodo){
          return NextResponse.json({message: "Todo does not exist"} , {status : 404})  ; 
       }
-      const existingTodo2 = await Todo.findOne({title})
-      if(existingTodo2){
-         return NextResponse.json({message: "Todo title already exist"} , {status : 404})  ; 
-      }
+      // const existingTodo2 = await Todo.findOne({title})
+      // if(existingTodo2){
+      //    return NextResponse.json({message: "Todo title already exist"} , {status : 404})  ; 
+      // }
       const updatedTodo = await Todo.findByIdAndUpdate(id , {...body}) ; 
       return NextResponse.json({updatedTodo: updatedTodo}, {status: 200}) ; 
 

@@ -29,13 +29,13 @@ const TodoList = () => {
                     <div>
                                  
                                  <div className="overflow-x-auto shadow-md sm:rounded-lg p-4">
-  {/* Champ de recherche */}
+
   <div className="relative mb-4">
     <input
       type="text"  value={search} onChange={(e) => setSearch(e.target.value)}
       id="table-search"
       className="w-full p-3 pl-10 text-gray-900 border border-gray-400 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      placeholder="Rechercher un élément..."
+      placeholder="Rechercher une tàche..."
     />
     <svg
       className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 dark:text-gray-400"
@@ -71,8 +71,8 @@ const TodoList = () => {
                  <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {task.title}
                  </td>
-                 <td className="px-6 py-4"> {task.description} </td>
-                 <td className="px-6 py-4">Laptop</td>
+                 <td className="px-6 py-4"> {task.priority} </td>
+                 <td className="px-6 py-4">  { task.isCompleted ? "Terminé" : "En cours"  }  </td>
           
                  <td className="px-6 py-4">
                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">

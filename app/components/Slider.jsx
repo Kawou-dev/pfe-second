@@ -1,22 +1,21 @@
-"use client";
-import React, { useState } from "react";
-import axios from "axios";
+"use client"; // Si vous utilisez Next.js 13+
 
-// Slider simple
+import React, { useState } from "react";
+
 const Slider = ({ images }) => {
   const [current, setCurrent] = useState(0);
 
   const next = () => setCurrent((prev) => (prev + 1) % images.length);
-  const prev = () => setCurrent((prev) => (prev - 1 + images.length) % images.length);
+  const prev = () => setCurrent((prev - 1 + images.length) % images.length);
 
   if (images.length === 0) return null;
 
   return (
-    <div className="relative w-[100px] h-[100px]">
+    <div className="relative w-[200px] h-[230px] ">
       <img
         src={images[current]}
         alt={`Slide ${current}`}
-        className="w-full h-full object-cover border"
+        className="w-full h-full object-cover border rounded-md "
       />
       {images.length > 1 && (
         <>
@@ -38,4 +37,4 @@ const Slider = ({ images }) => {
   );
 };
 
-export default Slider ; 
+export default Slider;

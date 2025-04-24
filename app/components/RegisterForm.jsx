@@ -11,7 +11,7 @@ const RegisterForm = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    genre: "",
+    gender: "",
   });
 
   const {loading , signup} = useSignup() ; 
@@ -95,23 +95,23 @@ const RegisterForm = () => {
                   <div className="flex items-center">
                     <input
                       type="radio"
-                      checked={data.genre === "masculin"}
-                      onChange={() => setData({...data , genre : "masculin"})}
+                      checked={data.gender === "male"}
+                      onChange={() => setData({...data , gender : "male"})}
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                     />
                     <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                      Masculin
+                      Male
                     </label>
                   </div>
                   <div className="flex items-center">
                     <input
                       type="radio"
-                      checked={data.genre === "feminin"}
-                      onChange={() => setData({...data , genre : "feminin"})}
+                      checked={data.gender === "female"}
+                      onChange={() => setData({...data , gender : "female"})}
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                     />
                     <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                      Féminin
+                      Female
                     </label>
                   </div>
                 </div>
@@ -125,7 +125,7 @@ const RegisterForm = () => {
 
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Already have an account?{" "}
-                  <Link href="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">
+                  <Link href="/login" className="font-medium text-blue-600 text-primary-600 hover:underline dark:text-primary-500">
                     Login here
                   </Link>
                 </p>
